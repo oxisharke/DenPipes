@@ -39,6 +39,6 @@ public class AutomaticWoodenPipe extends PipeItemsWood {
 
     @Override
     public int getTextureIndex(Orientations direction) {
-        return 0;
+        return 3;
     }
 }

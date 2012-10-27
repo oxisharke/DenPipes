@@ -27,7 +27,7 @@ public class Extract extends Action{
 
     @Override
     public int getIndexInTexture() {
-        return 0;
+        return 17;
     }
  
 }

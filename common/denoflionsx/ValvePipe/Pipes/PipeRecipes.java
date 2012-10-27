@@ -33,4 +33,10 @@ public class PipeRecipes {
         int craft = prop.getInt();
         GameRegistry.addShapelessRecipe(new ItemStack(pipe,craft,0), new Object[]{new ItemStack(BuildCraftTransport.pipeItemsWood), new ItemStack(BuildCraftEnergy.engineBlock,1,0)});
     }
+    
+    public static void SandstoneGoldPipeRecipe(ItemPipe pipe){
+        Property prop = ValvePipeMod.Core.config.getOrCreateIntProperty("SandstoneGoldPipe_AmountPerCraft", "general", 2);
+        int craft = prop.getInt();
+        GameRegistry.addShapelessRecipe(new ItemStack(pipe,craft,0), new Object[]{new ItemStack(BuildCraftTransport.pipeLiquidsSandstone), new ItemStack(BuildCraftTransport.pipeLiquidsGold)});
+    }
 }

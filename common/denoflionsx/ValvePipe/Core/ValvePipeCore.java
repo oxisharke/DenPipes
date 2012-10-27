@@ -2,8 +2,11 @@ package common.denoflionsx.ValvePipe.Core;
 
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.ItemPipe;
+import common.denoflionsx.ValvePipe.API.ValvePipeManagers;
 import common.denoflionsx.ValvePipe.Actions.Extract;
 import common.denoflionsx.ValvePipe.Actions.Pump;
+import common.denoflionsx.ValvePipe.Managers.DenActionManager;
+import common.denoflionsx.ValvePipe.Managers.DenPipeManager;
 import common.denoflionsx.ValvePipe.Pipes.*;
 import common.denoflionsx.ValvePipe.ValvePipeMod;
 import java.io.File;
@@ -30,6 +33,7 @@ public class ValvePipeCore {
     }
 
     public void createPipe() {
+        ValvePipeManagers.PipeManager = new DenPipeManager();
         if (configFile.exists()) {
             config.load();
         }
@@ -57,12 +61,21 @@ public class ValvePipeCore {
         ValvePipeMod.proxy.registerPipe(c3, AutomaticWoodenPipe.class, "Automatic Wooden Pipe");
         PipeRecipes.AutomaticWoodenPipeRecipe(c3);
         //----------------------------------------
+        Property prop5 = config.getOrCreateIntProperty("SandstoneGoldPipe_ItemID", "item", 5559);
+        id = prop5.getInt();
+        ItemPipe c4 = BlockGenericPipe.registerPipe(id, SandstoneGoldPipe.class);
+        ValvePipeMod.proxy.registerPipe(c4, SandstoneGoldPipe.class, "Sandstone Gold Pipe");
+        PipeRecipes.SandstoneGoldPipeRecipe(c4);
+        //----------------------------------------
         config.save();
     }
 
     public void createAction() {
+        ValvePipeManagers.ActionManager = new DenActionManager();
         pumpAction = new Pump();
         extractAction = new Extract();
+        ValvePipeManagers.ActionManager.registerAction(pumpAction, "Pump");
+        ValvePipeManagers.ActionManager.registerAction(extractAction, "Extract");
     }
 
     public void print(String msg) {
