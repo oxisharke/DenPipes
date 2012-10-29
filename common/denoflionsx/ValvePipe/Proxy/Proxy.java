@@ -16,13 +16,13 @@ public class Proxy {
         ValvePipeManagers.PipeManager.registerPipe(pipe, name);
         Item i = (Item) pipe;
         try {
-            ObfuscationReflectionHelper.setPrivateValue(Item.class,i,"bZ",name);
+            ObfuscationReflectionHelper.setPrivateValue(Item.class,i,"cl",name);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
     
     public String getConfigDir(){
-        return "./" + File.separator + "config" + File.separator + "denoflionsx" + File.separator;
+        return "./" + File.separator + "config" + File.separator + "denoflionsx" + File.separator + "ValvePipe" + File.separator;
     }
 }

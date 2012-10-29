@@ -37,34 +37,34 @@ public class ValvePipeCore {
         if (configFile.exists()) {
             config.load();
         }
-        Property prop = config.getOrCreateIntProperty("ValvePipe_ItemID", "item", 5555);
+        Property prop = config.get("item", "ValvePipe_ItemID", 5555);
         int id = prop.getInt();
         ItemPipe res = BlockGenericPipe.registerPipe(id, ValvePipe.class);
         ValvePipeMod.proxy.registerPipe(res, ValvePipe.class, "Valve Pipe");
         PipeRecipes.ValvePipeRecipe(res);
         //-------------------------------
-        Property prop2 = config.getOrCreateIntProperty("CobblestoneGoldPipe_ItemID", "item", 5556);
+        Property prop2 = config.get("item", "CobblestoneGoldPipe_ItemID", 5556);
         id = prop2.getInt();
         ItemPipe c = BlockGenericPipe.registerPipe(id, CobblestoneGoldPipe.class);
         ValvePipeMod.proxy.registerPipe(c, CobblestoneGoldPipe.class, "Cobblestone Gold Waterproof Pipe");
         PipeRecipes.CobbleStoneGoldPipeRecipe(c);
         //---------------------------------------
-        Property prop3 = config.getOrCreateIntProperty("StoneGoldPipe_ItemID", "item", 5557);
+        Property prop3 = config.get("item", "StoneGoldPipe_ItemID", 5557);
         id = prop3.getInt();
         ItemPipe c2 = BlockGenericPipe.registerPipe(id, StoneGoldPipe.class);
         ValvePipeMod.proxy.registerPipe(c2, StoneGoldPipe.class, "Stone Gold Waterproof Pipe");
         PipeRecipes.StoneGoldPipeRecipe(c2);
         //-----------------------------------
-        Property prop4 = config.getOrCreateIntProperty("AutomaticWoodenPipe_ItemID", "item", 5558);
+        Property prop4 = config.get("item", "AutomaticWoodenPipe_ItemID", 5558);
         id = prop4.getInt();
         ItemPipe c3 = BlockGenericPipe.registerPipe(id, AutomaticWoodenPipe.class);
         ValvePipeMod.proxy.registerPipe(c3, AutomaticWoodenPipe.class, "Automatic Wooden Pipe");
         PipeRecipes.AutomaticWoodenPipeRecipe(c3);
         //----------------------------------------
-        Property prop5 = config.getOrCreateIntProperty("SandstoneGoldPipe_ItemID", "item", 5559);
+        Property prop5 = config.get("item", "SandstoneGoldPipe_ItemID", 5559);
         id = prop5.getInt();
         ItemPipe c4 = BlockGenericPipe.registerPipe(id, SandstoneGoldPipe.class);
-        ValvePipeMod.proxy.registerPipe(c4, SandstoneGoldPipe.class, "Sandstone Gold Pipe");
+        ValvePipeMod.proxy.registerPipe(c4, SandstoneGoldPipe.class, "Sandstone Gold Waterproof Pipe");
         PipeRecipes.SandstoneGoldPipeRecipe(c4);
         //----------------------------------------
         config.save();
