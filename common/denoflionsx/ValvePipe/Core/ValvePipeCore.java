@@ -1,26 +1,37 @@
 package common.denoflionsx.ValvePipe.Core;
 
-import buildcraft.transport.BlockGenericPipe;
-import buildcraft.transport.ItemPipe;
 import common.denoflionsx.ValvePipe.API.ValvePipeManagers;
 import common.denoflionsx.ValvePipe.Actions.Extract;
 import common.denoflionsx.ValvePipe.Actions.Pump;
+import common.denoflionsx.ValvePipe.Creative.ValvePipeTab;
+import common.denoflionsx.ValvePipe.Interfaces.IPipeCore;
+import common.denoflionsx.ValvePipe.Items.ItemsCore;
 import common.denoflionsx.ValvePipe.Managers.DenActionManager;
+import common.denoflionsx.ValvePipe.Managers.DenItemManager;
 import common.denoflionsx.ValvePipe.Managers.DenPipeManager;
 import common.denoflionsx.ValvePipe.Pipes.*;
+import common.denoflionsx.ValvePipe.Pipes.IndustrialPipes.IndustrialPipesCore;
+import common.denoflionsx.ValvePipe.Pipes.PowerPipes.PowerPipesCore;
+import common.denoflionsx.ValvePipe.Utils.CreatePipe;
+import common.denoflionsx.ValvePipe.Utils.GetRecipeMethod;
+import common.denoflionsx.ValvePipe.Utils.PipeProperties;
 import common.denoflionsx.ValvePipe.ValvePipeMod;
 import java.io.File;
+import net.minecraft.src.CreativeTabs;
 import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
 
 public class ValvePipeCore {
 
-    public static ValvePipe pipeItem;
+    public static final String clazzpath = "common.denoflionsx.ValvePipe.Pipes.PipeRecipes";
     public static Pump pumpAction;
     public static Extract extractAction;
     public String texture = "";
     public File configFile;
     public Configuration config;
+    public IPipeCore IndustrialPipes;
+    public IPipeCore PowerPipes;
+    public IPipeCore Items;
+    public CreativeTabs tab = new ValvePipeTab();
 
     public void loadTexture() {
         print("-------------------------");
@@ -30,48 +41,43 @@ public class ValvePipeCore {
         configFile = new File(ValvePipeMod.proxy.getConfigDir() + "ValvePipe.cfg");
         config = new Configuration(configFile);
         texture = ValvePipeMod.proxy.preloadTexture("/common/denoflionsx/ValvePipe/gfx/pipe_sheet.png");
+        Items = new ItemsCore();
+        IndustrialPipes = new IndustrialPipesCore();
+        PowerPipes = new PowerPipesCore();
     }
 
     public void createPipe() {
         ValvePipeManagers.PipeManager = new DenPipeManager();
+        ValvePipeManagers.ItemManager = new DenItemManager();
+        Items.createPipes();
         if (configFile.exists()) {
             config.load();
         }
-        Property prop = config.get("item", "ValvePipe_ItemID", 5555);
-        int id = prop.getInt();
-        ItemPipe res = BlockGenericPipe.registerPipe(id, ValvePipe.class);
-        ValvePipeMod.proxy.registerPipe(res, ValvePipe.class, "Valve Pipe");
-        PipeRecipes.ValvePipeRecipe(res);
+        int id = PipeProperties.getOrCreatePipeProperty("ValvePipe_ItemID", 5555);
+        CreatePipe.Create("Valve Pipe", id, ValvePipe.class, GetRecipeMethod.getMethod(clazzpath, "ValvePipeRecipe"));
         //-------------------------------
-        Property prop2 = config.get("item", "CobblestoneGoldPipe_ItemID", 5556);
-        id = prop2.getInt();
-        ItemPipe c = BlockGenericPipe.registerPipe(id, CobblestoneGoldPipe.class);
-        ValvePipeMod.proxy.registerPipe(c, CobblestoneGoldPipe.class, "Cobblestone Gold Waterproof Pipe");
-        PipeRecipes.CobbleStoneGoldPipeRecipe(c);
+        id = PipeProperties.getOrCreatePipeProperty("CobblestoneGoldPipe_ItemID", 5556);
+        CreatePipe.Create("Cobblestone Golden Waterproof Pipe", id, CobblestoneGoldPipe.class, GetRecipeMethod.getMethod(clazzpath, "CobbleStoneGoldPipeRecipe"));
         //---------------------------------------
-        Property prop3 = config.get("item", "StoneGoldPipe_ItemID", 5557);
-        id = prop3.getInt();
-        ItemPipe c2 = BlockGenericPipe.registerPipe(id, StoneGoldPipe.class);
-        ValvePipeMod.proxy.registerPipe(c2, StoneGoldPipe.class, "Stone Gold Waterproof Pipe");
-        PipeRecipes.StoneGoldPipeRecipe(c2);
+        id = PipeProperties.getOrCreatePipeProperty("StoneGoldPipe_ItemID", 5557);
+        CreatePipe.Create("Stone Golden Waterproof Pipe", id, StoneGoldPipe.class, GetRecipeMethod.getMethod(clazzpath, "StoneGoldPipeRecipe"));
         //-----------------------------------
-        Property prop4 = config.get("item", "AutomaticWoodenPipe_ItemID", 5558);
-        id = prop4.getInt();
-        ItemPipe c3 = BlockGenericPipe.registerPipe(id, AutomaticWoodenPipe.class);
-        ValvePipeMod.proxy.registerPipe(c3, AutomaticWoodenPipe.class, "Automatic Wooden Pipe");
-        PipeRecipes.AutomaticWoodenPipeRecipe(c3);
+        id = PipeProperties.getOrCreatePipeProperty("AutomaticWoodenPipe_ItemID", 5558);
+        CreatePipe.Create("Automatic Wooden Transport Pipe", id, AutomaticWoodenPipe.class, GetRecipeMethod.getMethod(clazzpath, "AutomaticWoodenPipeRecipe"));
         //----------------------------------------
-        Property prop5 = config.get("item", "SandstoneGoldPipe_ItemID", 5559);
-        id = prop5.getInt();
-        ItemPipe c4 = BlockGenericPipe.registerPipe(id, SandstoneGoldPipe.class);
-        ValvePipeMod.proxy.registerPipe(c4, SandstoneGoldPipe.class, "Sandstone Gold Waterproof Pipe");
-        PipeRecipes.SandstoneGoldPipeRecipe(c4);
+        id = PipeProperties.getOrCreatePipeProperty("SandstoneGoldPipe_ItemID", 5559);
+        CreatePipe.Create("Sandstone Golden Waterproof Pipe", id, SandstoneGoldPipe.class, GetRecipeMethod.getMethod(clazzpath, "SandstoneGoldPipeRecipe"));
         //----------------------------------------
+        IndustrialPipes.createPipes();
+        PowerPipes.createPipes();
         config.save();
     }
 
     public void createAction() {
         ValvePipeManagers.ActionManager = new DenActionManager();
+        this.Items.createActions();
+        this.IndustrialPipes.createActions();
+        this.PowerPipes.createActions();
         pumpAction = new Pump();
         extractAction = new Extract();
         ValvePipeManagers.ActionManager.registerAction(pumpAction, "Pump");

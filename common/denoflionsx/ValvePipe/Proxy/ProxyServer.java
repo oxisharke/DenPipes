@@ -5,6 +5,11 @@ import buildcraft.transport.ItemPipe;
 public class ProxyServer extends Proxy{
 
     @Override
+    public String getConfigDir() {
+        return super.getConfigDir();
+    }
+
+    @Override
     public String preloadTexture(String texture) {
         return super.preloadTexture(texture);
     }
@@ -13,5 +18,4 @@ public class ProxyServer extends Proxy{
     public void registerPipe(ItemPipe pipe, Class c, String name) {
         super.registerPipe(pipe, c, name);
     }
-
 }

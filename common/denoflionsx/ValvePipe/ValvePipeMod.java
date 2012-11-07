@@ -10,7 +10,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid = "ValvePipe", name = "Valve Pipe", version = Version.version, dependencies = "required-after:BuildCraft|Transport;required-after:BuildCraft|Energy")
+@Mod(modid = "ValvePipe", name = "Valve Pipe", version = Version.version, dependencies = "required-after:BuildCraft|Transport;required-after:BuildCraft|Energy;required-after:BuildCraft|Silicon")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class ValvePipeMod {
 

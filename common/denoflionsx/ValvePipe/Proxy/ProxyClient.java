@@ -2,6 +2,7 @@ package common.denoflionsx.ValvePipe.Proxy;
 
 import buildcraft.transport.ItemPipe;
 import buildcraft.transport.TransportProxyClient;
+import common.denoflionsx.ValvePipe.ValvePipeMod;
 import java.io.File;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -18,6 +19,7 @@ public class ProxyClient extends Proxy {
     public void registerPipe(ItemPipe pipe, Class c, String name) {
         super.registerPipe(pipe, c, name);
         MinecraftForgeClient.registerItemRenderer(pipe.shiftedIndex, TransportProxyClient.pipeItemRenderer);
+        pipe.setCreativeTab(ValvePipeMod.Core.tab);
     }
 
     @Override
