@@ -5,10 +5,18 @@ import net.minecraft.src.Item;
 
 public class CustomPlate extends Item {
 
+    public static mode Crafting = mode.VANILLA;
+
     public CustomPlate(int par1) {
         super(par1);
         this.setTextureFile(ValvePipeMod.Core.texture);
         this.setItemName("customplate");
+    }
+
+    public static enum mode {
+
+        RAILCRAFT,
+        VANILLA;
     }
 
     public static enum names {

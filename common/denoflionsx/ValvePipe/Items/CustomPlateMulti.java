@@ -3,6 +3,7 @@ package common.denoflionsx.ValvePipe.Items;
 import common.denoflionsx.ValvePipe.API.ValvePipeManagers;
 import common.denoflionsx.ValvePipe.Utils.PipeProperties;
 import common.denoflionsx.ValvePipe.Utils.StringUtil;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,9 @@ public class CustomPlateMulti extends CustomPlate {
         super(ItemID);
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
+        if (Loader.isModLoaded("Railcraft")) {
+            Crafting = mode.RAILCRAFT;
+        }
         texture = new HashMap();
         for (textures t : textures.values()) {
             texture.put(t.getMeta(), t.getIndex());
@@ -41,7 +45,7 @@ public class CustomPlateMulti extends CustomPlate {
         CustomPlateRecipes.SandstonePlateRecipe(this);
         CustomPlateRecipes.GoldPlateRecipe(this);
         //----------------------------
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             ValvePipeManagers.ItemManager.registerItem(new ItemStack(this, 1, i));
         }
     }

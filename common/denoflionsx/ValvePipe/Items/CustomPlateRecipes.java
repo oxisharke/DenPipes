@@ -1,7 +1,7 @@
 package common.denoflionsx.ValvePipe.Items;
 
 import buildcraft.BuildCraftTransport;
-import common.denoflionsx.ValvePipe.Pipes.IndustrialPipes.IndustrialPipesCore;
+import common.denoflionsx.ValvePipe.API.ValvePipeManagers;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
@@ -12,22 +12,22 @@ import railcraft.common.api.crafting.RailcraftCraftingManager;
 public class CustomPlateRecipes {
 
     public static void BronzePlateRecipe(Item plate) {
-        if (IndustrialPipesCore.Crafting.equals(IndustrialPipesCore.mode.RAILCRAFT)) {
+        if (CustomPlate.Crafting.equals(CustomPlate.mode.RAILCRAFT)) {
             for (ItemStack b : OreDictionary.getOres("ingotBronze")) {
                 RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(plate, 9, 0), new Object[]{"XXX", "XXX", "XXX", Character.valueOf('X'), b});
             }
         } else {
             for (ItemStack b : OreDictionary.getOres("ingotBronze")) {
-                GameRegistry.addRecipe(new ItemStack(plate, 9, 0), new Object[]{"XXX", "XXX", "XXX", Character.valueOf('X'), b});
+                GameRegistry.addRecipe(new ItemStack(plate, 9, 0), new Object[]{"XXX", "XZX", "XXX", Character.valueOf('X'), b, Character.valueOf('Z'), ValvePipeManagers.ItemManager.getItemByName("item.stoneplate")});
             }
         }
     }
 
     public static void GoldPlateRecipe(Item plate) {
-        if (IndustrialPipesCore.Crafting.equals(IndustrialPipesCore.mode.RAILCRAFT)) {
+        if (CustomPlate.Crafting.equals(CustomPlate.mode.RAILCRAFT)) {
             RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(plate, 9, 1), new Object[]{"XXX", "XXX", "XXX", Character.valueOf('X'), new ItemStack(Item.ingotGold)});
         } else {
-            GameRegistry.addRecipe(new ItemStack(plate, 9, 1), new Object[]{"XXX", "XXX", "XXX", Character.valueOf('X'), new ItemStack(Item.ingotGold)});
+            GameRegistry.addRecipe(new ItemStack(plate, 9, 1), new Object[]{"XXX", "XZX", "XXX", Character.valueOf('X'), new ItemStack(Item.ingotGold),Character.valueOf('Z'), ValvePipeManagers.ItemManager.getItemByName("item.stoneplate")});
         }
     }
 
@@ -36,7 +36,7 @@ public class CustomPlateRecipes {
     }
 
     public static void CobblestonePlateRecipe(Item plate) {
-        if (IndustrialPipesCore.Crafting.equals(IndustrialPipesCore.mode.RAILCRAFT)) {
+        if (CustomPlate.Crafting.equals(CustomPlate.mode.RAILCRAFT)) {
             RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(plate, 9, 3), new Object[]{"XXX", "XXX", "XXX", Character.valueOf('X'), new ItemStack(Block.cobblestone)});
         } else {
             GameRegistry.addRecipe(new ItemStack(plate, 9, 3), new Object[]{"XXX", "XXX", "XXX", Character.valueOf('X'), new ItemStack(Block.cobblestone)});
@@ -44,18 +44,18 @@ public class CustomPlateRecipes {
     }
 
     public static void StonePlateRecipe(Item plate) {
-        if (IndustrialPipesCore.Crafting.equals(IndustrialPipesCore.mode.RAILCRAFT)) {
+        if (CustomPlate.Crafting.equals(CustomPlate.mode.RAILCRAFT)) {
             RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(plate, 9, 4), new Object[]{"XXX", "XXX", "XXX", Character.valueOf('X'), new ItemStack(Block.stone)});
         } else {
-            GameRegistry.addRecipe(new ItemStack(plate, 9, 4), new Object[]{"XXX", "XXX", "XXX", Character.valueOf('X'), new ItemStack(Block.stone)});
+            GameRegistry.addRecipe(new ItemStack(plate, 9, 4), new Object[]{"XXX", "XZX", "XXX", Character.valueOf('X'), new ItemStack(Block.stone),Character.valueOf('Z'), ValvePipeManagers.ItemManager.getItemByName("item.cobblestoneplate")});
         }
     }
 
     public static void SandstonePlateRecipe(Item plate) {
-        if (IndustrialPipesCore.Crafting.equals(IndustrialPipesCore.mode.RAILCRAFT)) {
+        if (CustomPlate.Crafting.equals(CustomPlate.mode.RAILCRAFT)) {
             RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(plate, 9, 5), new Object[]{"XXX", "XXX", "XXX", Character.valueOf('X'),  new ItemStack(Block.sandStone)});
         } else {
-            GameRegistry.addRecipe(new ItemStack(plate, 9, 5), new Object[]{"XXX", "XXX", "XXX", Character.valueOf('X'), new ItemStack(Block.sandStone)});
+            GameRegistry.addRecipe(new ItemStack(plate, 9, 5), new Object[]{"XXX", "XZX", "XXX", Character.valueOf('X'), new ItemStack(Block.sandStone),Character.valueOf('Z'), ValvePipeManagers.ItemManager.getItemByName("item.stoneplate")});
         }
     }
 }
