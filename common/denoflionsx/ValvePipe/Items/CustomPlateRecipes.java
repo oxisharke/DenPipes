@@ -18,7 +18,7 @@ public class CustomPlateRecipes {
             }
         } else {
             for (ItemStack b : OreDictionary.getOres("ingotBronze")) {
-                GameRegistry.addRecipe(new ItemStack(plate, 9, 0), new Object[]{"XXX", "XZX", "XXX", Character.valueOf('X'), b, Character.valueOf('Z'), ValvePipeManagers.ItemManager.getItemByName("item.stoneplate")});
+                GameRegistry.addRecipe(new ItemStack(plate, 8, 0), new Object[]{"XXX", "XZX", "XXX", Character.valueOf('X'), b, Character.valueOf('Z'), ValvePipeManagers.ItemManager.getItemByName("item.stoneplate")});
             }
         }
     }
@@ -27,7 +27,7 @@ public class CustomPlateRecipes {
         if (CustomPlate.Crafting.equals(CustomPlate.mode.RAILCRAFT)) {
             RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(plate, 9, 1), new Object[]{"XXX", "XXX", "XXX", Character.valueOf('X'), new ItemStack(Item.ingotGold)});
         } else {
-            GameRegistry.addRecipe(new ItemStack(plate, 9, 1), new Object[]{"XXX", "XZX", "XXX", Character.valueOf('X'), new ItemStack(Item.ingotGold),Character.valueOf('Z'), ValvePipeManagers.ItemManager.getItemByName("item.stoneplate")});
+            GameRegistry.addRecipe(new ItemStack(plate, 8, 1), new Object[]{"XXX", "XZX", "XXX", Character.valueOf('X'), new ItemStack(Item.ingotGold),Character.valueOf('Z'), ValvePipeManagers.ItemManager.getItemByName("item.stoneplate")});
         }
     }
 
@@ -47,7 +47,7 @@ public class CustomPlateRecipes {
         if (CustomPlate.Crafting.equals(CustomPlate.mode.RAILCRAFT)) {
             RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(plate, 9, 4), new Object[]{"XXX", "XXX", "XXX", Character.valueOf('X'), new ItemStack(Block.stone)});
         } else {
-            GameRegistry.addRecipe(new ItemStack(plate, 9, 4), new Object[]{"XXX", "XZX", "XXX", Character.valueOf('X'), new ItemStack(Block.stone),Character.valueOf('Z'), ValvePipeManagers.ItemManager.getItemByName("item.cobblestoneplate")});
+            GameRegistry.addRecipe(new ItemStack(plate, 8, 4), new Object[]{"XXX", "XZX", "XXX", Character.valueOf('X'), new ItemStack(Block.stone),Character.valueOf('Z'), ValvePipeManagers.ItemManager.getItemByName("item.cobblestoneplate")});
         }
     }
 
@@ -55,7 +55,7 @@ public class CustomPlateRecipes {
         if (CustomPlate.Crafting.equals(CustomPlate.mode.RAILCRAFT)) {
             RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(plate, 9, 5), new Object[]{"XXX", "XXX", "XXX", Character.valueOf('X'),  new ItemStack(Block.sandStone)});
         } else {
-            GameRegistry.addRecipe(new ItemStack(plate, 9, 5), new Object[]{"XXX", "XZX", "XXX", Character.valueOf('X'), new ItemStack(Block.sandStone),Character.valueOf('Z'), ValvePipeManagers.ItemManager.getItemByName("item.stoneplate")});
+            GameRegistry.addRecipe(new ItemStack(plate, 8, 5), new Object[]{"XXX", "XZX", "XXX", Character.valueOf('X'), new ItemStack(Block.sandStone),Character.valueOf('Z'), ValvePipeManagers.ItemManager.getItemByName("item.stoneplate")});
         }
     }
 }

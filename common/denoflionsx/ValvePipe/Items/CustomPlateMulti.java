@@ -36,6 +36,9 @@ public class CustomPlateMulti extends CustomPlate {
         //----------------------------
         // Run all the recipe methods.
         //----------------------------
+        for (int i = 0; i < 6; i++) {
+            ValvePipeManagers.ItemManager.registerItem(new ItemStack(this, 1, i));
+        }
         if (OreDictionary.getOres("ingotBronze") != null) {
             CustomPlateRecipes.BronzePlateRecipe(this);
         }
@@ -45,9 +48,6 @@ public class CustomPlateMulti extends CustomPlate {
         CustomPlateRecipes.SandstonePlateRecipe(this);
         CustomPlateRecipes.GoldPlateRecipe(this);
         //----------------------------
-        for (int i = 0; i < 6; i++) {
-            ValvePipeManagers.ItemManager.registerItem(new ItemStack(this, 1, i));
-        }
     }
 
     @Override

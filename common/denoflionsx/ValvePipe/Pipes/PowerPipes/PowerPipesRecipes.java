@@ -18,6 +18,6 @@ public class PowerPipesRecipes {
     }
     
     public static void SandstoneGoldPowerPipeRecipe(ItemPipe pipe){
-        GameRegistry.addRecipe(new ItemStack(pipe,8,0),new Object[]{"XRX","SgS","XXX", Character.valueOf('R'), new ItemStack(Item.redstone), Character.valueOf('S'), ValvePipeManagers.ItemManager.getItemByName("item.sandstoneplate"),Character.valueOf('g'), new ItemStack(Block.glass)});
+        GameRegistry.addRecipe(new ItemStack(pipe,8 * 2,0),new Object[]{"GRG","SgS","XXX", Character.valueOf('R'), new ItemStack(Item.redstone), Character.valueOf('S'), ValvePipeManagers.ItemManager.getItemByName("item.sandstoneplate"),Character.valueOf('g'), new ItemStack(Block.glass),Character.valueOf('G'), ValvePipeManagers.ItemManager.getItemByName("item.goldplate")});
     }
 }
