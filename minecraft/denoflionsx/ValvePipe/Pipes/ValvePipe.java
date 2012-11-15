@@ -9,7 +9,7 @@ import denoflionsx.ValvePipe.ValvePipeMod;
 import java.util.HashMap;
 import java.util.LinkedList;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.liquids.LiquidManager;
+import net.minecraftforge.liquids.LiquidContainerRegistry;
 
 public class ValvePipe extends PipeLiquidsWood {
 
@@ -30,8 +30,8 @@ public class ValvePipe extends PipeLiquidsWood {
     @Override
     public void doWork() {
         super.doWork();
-        if (liquidToExtract <= LiquidManager.BUCKET_VOLUME) {
-            liquidToExtract += this.getPowerProvider().useEnergy(100, 100, true) * LiquidManager.BUCKET_VOLUME;
+        if (liquidToExtract <= LiquidContainerRegistry.BUCKET_VOLUME) {
+            liquidToExtract += this.getPowerProvider().useEnergy(100, 100, true) * LiquidContainerRegistry.BUCKET_VOLUME;
         }
     }
 
