@@ -32,11 +32,11 @@ public class ValvePipeMod {
 
     @Mod.Init
     public void load(FMLInitializationEvent event) {
-        Core.createAction();
+        Core.createActions();
     }
 
     @Mod.PostInit
     public void modsLoaded(FMLPostInitializationEvent evt) {
-        Core.createPipe();
+        Core.createPipes();
     }
 }

@@ -9,11 +9,10 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class IndustrialPipesCore implements IPipeCore {
 
-
     public final String clazzpath = "common.denoflionsx.ValvePipe.Pipes.IndustrialPipes.IndustrialPipeRecipes";
     public final int cobble = PipeProperties.getOrCreatePipeProperty("IndustrialCobble_ItemID", 5560);
     public final int stone = PipeProperties.getOrCreatePipeProperty("IndustrialStone_ItemID", 5561);
-
+    public static int PipeCapacityMultiplier = 4;
 
     @Override
     public void createPipes() {

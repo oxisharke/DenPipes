@@ -20,7 +20,7 @@ import java.io.File;
 import net.minecraft.src.CreativeTabs;
 import net.minecraftforge.common.Configuration;
 
-public class ValvePipeCore {
+public class ValvePipeCore implements IPipeCore{
 
     public static final String clazzpath = "common.denoflionsx.ValvePipe.Pipes.PipeRecipes";
     public static Pump pumpAction;
@@ -46,7 +46,7 @@ public class ValvePipeCore {
         PowerPipes = new PowerPipesCore();
     }
 
-    public void createPipe() {
+    public void createPipes() {
         ValvePipeManagers.PipeManager = new DenPipeManager();
         ValvePipeManagers.ItemManager = new DenItemManager();
         Items.createPipes();
@@ -73,7 +73,7 @@ public class ValvePipeCore {
         config.save();
     }
 
-    public void createAction() {
+    public void createActions() {
         ValvePipeManagers.ActionManager = new DenActionManager();
         this.Items.createActions();
         this.IndustrialPipes.createActions();
