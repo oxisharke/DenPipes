@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Valve Pipe" default="default" basedir=".">
     <description>Builds, tests, and runs the project LiquidRoundup.</description>
-	<!-- For anyone else using this script - You'll probably have to remove this import. Netbeans puts that there -->
-	<!-- I leave it here because it outputs non-obfusucated stuff that is easy to ref in Netbeans. -->
-    <import file="nbproject/build-impl.xml"/>
 	
-    <property name="file.name" value="BuildCraft-Z-ValvePipeAM.jar"/>
+    <property name="file.name" value="BuildCraft-Z-ValvePipeAM-1.4.6"/>
     <property name="Utils.dir" value="Util"/>
     <property name="Forge.file" value="minecraftforge-src-1.4.6-6.5.0.474.zip"/>
     <property name="Forge.dir" value="forge"/>
@@ -13,17 +10,22 @@
     <property name="MCPsrc.dir" value="${MCP.dir}/src/minecraft"/>
     <property name="Finish.dir" value="Complete"/>
     <property name="src.dir" value="src"/>
-    <property name="denLib" value="buildcraft.zip"/>
+    <property name="denLib" value="denLib-Stuff.zip"/>
     <property name="reobf.dir" value="${MCP.dir}/reobf/minecraft"/>
     <property name="resource.dir" value="resources"/>
     <property name="test.dir" value="Test_Env"/>
     <property name="temp.dir" value="temp"/>
     <!--====================================-->
 
+    <target name="default" depends="main">
+    </target>
+
     <target name="clean">
         <delete dir="${MCP.dir}"/>
-
-        <unzip dest="${basedir}">
+    </target>
+	
+	<target name="forge" depends="forge.exists" unless="dir.exists">
+	    <unzip dest="${basedir}">
             <fileset dir="${Utils.dir}">
                 <include name="${Forge.file}"/>
             </fileset>
@@ -32,9 +34,20 @@
         <exec dir="${Forge.dir}" executable="cmd" osfamily="windows">
             <arg line="/c install.cmd"/>
         </exec>
-    </target>
+        
+        <exec dir="${Forge.dir}" executable="sh" osfamily="unix">
+            <arg value="install.sh" />
+        </exec>
+        
+	</target>
+	
+	<target name="forge.exists">
+		<condition property="dir.exists">
+			<available file="${forge.dir}" type="dir"/>
+		</condition>
+	</target>
 
-    <target name="-post-jar">
+    <target name="main" depends="forge">
         <delete dir="${Finish.dir}"/>
         <delete dir="${temp.dir}"/>
         <delete dir="${MCPsrc.dir}/denoflionsx"/>
@@ -48,13 +61,21 @@
         <copy todir="${MCPsrc.dir}">
             <fileset dir="${src.dir}"/>
         </copy>
-
+        
         <exec dir="${MCP.dir}" executable="cmd" osfamily="windows">
             <arg line="/c recompile.bat"/>
         </exec>
+        
+        <exec dir="${MCP.dir}" executable="sh" osfamily="unix" failonerror="true">
+            <arg value="recompile.sh" />
+	</exec>
 		
         <exec dir="${MCP.dir}" executable="cmd" osfamily="windows">
             <arg line="/c reobfuscate.bat"/>
+        </exec>
+        
+        <exec dir="${MCP.dir}" executable="sh" osfamily="unix">
+            <arg value="reobfuscate.sh" />
         </exec>
 		
         <exec dir="${MCP.dir}" executable="cmd" osfamily="windows">
@@ -71,8 +92,8 @@
         <copy todir="${reobf.dir}">
             <fileset dir="${resource.dir}"/>
         </copy>
-    
+        
         <jar destfile="${Finish.dir}/${file.name}" basedir = "${reobf.dir}"/>
-
+        
     </target>
 </project>
