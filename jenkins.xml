@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Valve Pipe" default="default" basedir=".">
+    <description>Builds, tests, and runs the project LiquidRoundup.</description>
+	<!-- For anyone else using this script - You'll probably have to remove this import. Netbeans puts that there -->
+	<!-- I leave it here because it outputs non-obfusucated stuff that is easy to ref in Netbeans. -->
+    <import file="nbproject/build-impl.xml"/>
+	
+    <property name="file.name" value="BuildCraft-Z-ValvePipeAM.jar"/>
+    <property name="Utils.dir" value="Util"/>
+    <property name="Forge.file" value="minecraftforge-src-1.4.6-6.5.0.474.zip"/>
+    <property name="Forge.dir" value="forge"/>
+    <property name="MCP.dir" value="${Forge.dir}/mcp"/>
+    <property name="MCPsrc.dir" value="${MCP.dir}/src/minecraft"/>
+    <property name="Finish.dir" value="Complete"/>
+    <property name="src.dir" value="src"/>
+    <property name="denLib" value="buildcraft.zip"/>
+    <property name="reobf.dir" value="${MCP.dir}/reobf/minecraft"/>
+    <property name="resource.dir" value="resources"/>
+    <property name="test.dir" value="Test_Env"/>
+    <property name="temp.dir" value="temp"/>
+    <!--====================================-->
+
+    <target name="clean">
+        <delete dir="${MCP.dir}"/>
+
+        <unzip dest="${basedir}">
+            <fileset dir="${Utils.dir}">
+                <include name="${Forge.file}"/>
+            </fileset>
+        </unzip>
+		
+        <exec dir="${Forge.dir}" executable="cmd" osfamily="windows">
+            <arg line="/c install.cmd"/>
+        </exec>
+    </target>
+
+    <target name="-post-jar">
+        <delete dir="${Finish.dir}"/>
+        <delete dir="${temp.dir}"/>
+        <delete dir="${MCPsrc.dir}/denoflionsx"/>
+                
+        <unzip dest="${MCPsrc.dir}">
+            <fileset dir="${Utils.dir}">
+                <include name="${denLib}"/>
+            </fileset>
+        </unzip>
+                
+        <copy todir="${MCPsrc.dir}">
+            <fileset dir="${src.dir}"/>
+        </copy>
+
+        <exec dir="${MCP.dir}" executable="cmd" osfamily="windows">
+            <arg line="/c recompile.bat"/>
+        </exec>
+		
+        <exec dir="${MCP.dir}" executable="cmd" osfamily="windows">
+            <arg line="/c reobfuscate.bat"/>
+        </exec>
+		
+        <exec dir="${MCP.dir}" executable="cmd" osfamily="windows">
+            <arg line="/c getchangedsrc.bat"/>
+        </exec>
+		
+        <delete dir="${reobf.dir}/denoflionsx/denLib"/>
+        <delete dir="${reobf.dir}/forestry"/>
+        <delete dir="${reobf.dir}/railcraft"/>
+        <delete dir="${reobf.dir}/thermalexpansion"/>
+        <delete dir="${reobf.dir}/buildcraft"/>
+        <delete dir="${reobf.dir}/ic2"/>
+        
+        <copy todir="${reobf.dir}">
+            <fileset dir="${resource.dir}"/>
+        </copy>
+    
+        <jar destfile="${Finish.dir}/${file.name}" basedir = "${reobf.dir}"/>
+
+    </target>
+</project>
