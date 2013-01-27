@@ -54,7 +54,7 @@ public class InventoryUtil {
 				_inventory.setInventorySlotContents(i, stackToMove);
 				return null;
 			}
-			if (stackToMove.itemID == stack.itemID && (stackToMove.getItem().isDamageable() || stackToMove.getItemDamage() == stack.getItemDamage())) {
+			if (stackToMove.itemID == stack.itemID && (stackToMove.getItem().isDamageable() || stackToMove.getItemDamage() == stack.getItemDamage()) && ItemStack.areItemStackTagsEqual(stack, stackToMove)) {
 				if (stackToMove.stackSize + stack.stackSize <= stack.getMaxStackSize()) {
 					stack.stackSize += stackToMove.stackSize;
 					return null;
@@ -62,6 +62,7 @@ public class InventoryUtil {
 				int itemsToMove = stack.getMaxStackSize() - stack.stackSize;
 				stack.stackSize += itemsToMove;
 				stackToMove.stackSize -= itemsToMove;
+				_inventory.setInventorySlotContents(i, stackToMove);
 			}
 		}
 		return stackToMove;

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -24,6 +23,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import buildcraft.BuildCraftBuilders;
 import buildcraft.BuildCraftCore;
+import buildcraft.core.CreativeTabBuildCraft;
 import buildcraft.core.DefaultProps;
 import buildcraft.core.utils.Utils;
 
@@ -35,7 +35,7 @@ public class BlockMarker extends BlockContainer {
 		blockIndexInTexture = 3 * 16 + 9;
 
 		setLightValue(0.5F);
-		setCreativeTab(CreativeTabs.tabRedstone);
+		setCreativeTab(CreativeTabBuildCraft.tabBuildCraft);
 	}
 
 	@SuppressWarnings({ "all" })
@@ -157,8 +157,8 @@ public class BlockMarker extends BlockContainer {
 	}
 
 	@Override
-	public int func_85104_a(World world, int x, int y, int z, int side, float par6, float par7, float par8, int meta) {
-		super.func_85104_a(world, x, y, z, side, par6, par7, par8, meta);
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float par6, float par7, float par8, int meta) {
+		super.onBlockPlaced(world, x, y, z, side, par6, par7, par8, meta);
 
 		if (side == 1 && BuildersProxy.canPlaceTorch(world, x, y - 1, z)) {
 			meta = 5;

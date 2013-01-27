@@ -14,7 +14,7 @@ public class AutomaticWoodenPipe extends PipeItemsWood {
     public AutomaticWoodenPipe(int itemID) {
         super(itemID);
     }
-    
+
     @Override
     public LinkedList<IAction> getActions() {
         LinkedList<IAction> a = super.getActions();
@@ -39,6 +39,16 @@ public class AutomaticWoodenPipe extends PipeItemsWood {
 
     @Override
     public int getTextureIndex(ForgeDirection direction) {
-        return 3;
+        if (direction == ForgeDirection.UNKNOWN) {
+            return 3;
+        } else {
+            int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+
+            if (metadata == direction.ordinal()) {
+                return 15;
+            } else {
+                return 3;
+            }
+        }
     }
 }

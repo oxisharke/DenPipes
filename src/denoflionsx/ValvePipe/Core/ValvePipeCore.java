@@ -15,12 +15,13 @@ import denoflionsx.ValvePipe.Pipes.PowerPipes.PowerPipesCore;
 import denoflionsx.ValvePipe.Utils.CreatePipe;
 import denoflionsx.ValvePipe.Utils.GetRecipeMethod;
 import denoflionsx.ValvePipe.Utils.PipeProperties;
+import denoflionsx.ValvePipe.Utils.ReflectUtils;
 import denoflionsx.ValvePipe.ValvePipeMod;
 import java.io.File;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.Configuration;
 
-public class ValvePipeCore implements IPipeCore{
+public class ValvePipeCore implements IPipeCore {
 
     public static final String clazzpath = "denoflionsx.ValvePipe.Pipes.PipeRecipes";
     public static Pump pumpAction;
@@ -29,7 +30,7 @@ public class ValvePipeCore implements IPipeCore{
     public File configFile;
     public Configuration config;
     public IPipeCore IndustrialPipes;
-    public IPipeCore PowerPipes;
+    public PowerPipesCore PowerPipes;
     public IPipeCore Items;
     public CreativeTabs tab = new ValvePipeTab();
 
@@ -45,15 +46,15 @@ public class ValvePipeCore implements IPipeCore{
         IndustrialPipes = new IndustrialPipesCore();
         PowerPipes = new PowerPipesCore();
     }
-    
+
     @Override
     public void createPipes() {
         ValvePipeManagers.PipeManager = new DenPipeManager();
         ValvePipeManagers.ItemManager = new DenItemManager();
-        Items.createPipes();
         if (configFile.exists()) {
             config.load();
         }
+        Items.createPipes();
         int id = PipeProperties.getOrCreatePipeProperty("ValvePipe_ItemID", 5555);
         CreatePipe.Create("Valve Pipe", id, ValvePipe.class, GetRecipeMethod.getMethod(clazzpath, "ValvePipeRecipe"));
         //-------------------------------
@@ -69,6 +70,12 @@ public class ValvePipeCore implements IPipeCore{
         id = PipeProperties.getOrCreatePipeProperty("SandstoneGoldPipe_ItemID", 5559);
         CreatePipe.Create("Sandstone Golden Waterproof Pipe", id, SandstoneGoldPipe.class, GetRecipeMethod.getMethod(clazzpath, "SandstoneGoldPipeRecipe"));
         //----------------------------------------
+        // Check and make sure Emerald Pipe exists before trying to make the automatic pipe.
+        if (ReflectUtils.doesPipeExist("pipeItemsEmerald")) {
+            id = PipeProperties.getOrCreatePipeProperty("AutomaticEmeraldPipe_ItemID", 5565);
+            CreatePipe.Create("Automatic Emerald Pipe", id, AutomaticEmeraldPipe.class, GetRecipeMethod.getMethod(clazzpath, "AutomaticEmeraldPipeRecipe"));
+        }
+        //----------------------------------------
         IndustrialPipes.createPipes();
         PowerPipes.createPipes();
         config.save();
@@ -78,12 +85,13 @@ public class ValvePipeCore implements IPipeCore{
     public void createActions() {
         ValvePipeManagers.ActionManager = new DenActionManager();
         this.Items.createActions();
-        //this.IndustrialPipes.createActions();
+        this.IndustrialPipes.createActions();
         this.PowerPipes.createActions();
         pumpAction = new Pump();
         extractAction = new Extract();
         ValvePipeManagers.ActionManager.registerAction(pumpAction, "Pump");
         ValvePipeManagers.ActionManager.registerAction(extractAction, "Extract");
+        ValvePipeManagers.ActionManager.registerAction(PowerPipesCore.flowAction, "Flow");
     }
 
     public void print(String msg) {

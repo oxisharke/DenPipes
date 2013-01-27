@@ -84,7 +84,6 @@
 		
         <delete dir="${reobf.dir}/denoflionsx/denLib"/>
         <delete dir="${reobf.dir}/forestry"/>
-        <delete dir="${reobf.dir}/railcraft"/>
         <delete dir="${reobf.dir}/thermalexpansion"/>
         <delete dir="${reobf.dir}/buildcraft"/>
         <delete dir="${reobf.dir}/ic2"/>

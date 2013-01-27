@@ -19,6 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -352,8 +353,8 @@ public class BlockGenericPipe extends BlockContainer {
 	}
 
 	@Override
-	public int func_85104_a(World world, int x, int y, int z, int side, float par6, float par7, float par8, int meta) {
-		super.func_85104_a(world, x, y, z, side, par6, par7, par8, meta);
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float par6, float par7, float par8, int meta) {
+		super.onBlockPlaced(world, x, y, z, side, par6, par7, par8, meta);
 		Pipe pipe = getPipe(world, x, y, z);
 
 		if (isValid(pipe)) {
@@ -362,7 +363,17 @@ public class BlockGenericPipe extends BlockContainer {
 
 		return meta;
 	}
+	
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving placer) {
+		super.onBlockPlacedBy(world, x, y, z, placer);
+		Pipe pipe = getPipe(world, x, y, z);
 
+		if (isValid(pipe)) {
+			pipe.onBlockPlacedBy(placer);
+		}
+	}
+	
 	@Override
 	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
 		super.onBlockActivated(world, i, j, k, entityplayer, par6, par7, par8, par9);
@@ -384,7 +395,7 @@ public class BlockGenericPipe extends BlockContainer {
 			} else if (entityplayer.getCurrentEquippedItem() == null) {
 
 				// Fall through the end of the test
-			} else if (entityplayer.getCurrentEquippedItem().itemID == Item.sign.shiftedIndex)
+			} else if (entityplayer.getCurrentEquippedItem().itemID == Item.sign.itemID)
 				// Sign will be placed anyway, so lets show the sign gui
 				return false;
 			else if (entityplayer.getCurrentEquippedItem().getItem() instanceof ItemPipe)
@@ -433,8 +444,8 @@ public class BlockGenericPipe extends BlockContainer {
 					pipe.container.scheduleNeighborChange();
 					return true;
 				}
-			} else if (entityplayer.getCurrentEquippedItem().itemID == BuildCraftTransport.pipeGate.shiftedIndex
-					|| entityplayer.getCurrentEquippedItem().itemID == BuildCraftTransport.pipeGateAutarchic.shiftedIndex)
+			} else if (entityplayer.getCurrentEquippedItem().itemID == BuildCraftTransport.pipeGate.itemID
+					|| entityplayer.getCurrentEquippedItem().itemID == BuildCraftTransport.pipeGateAutarchic.itemID)
 				if (!pipe.hasInterface()) {
 
 					pipe.gate = new GateVanilla(pipe, entityplayer.getCurrentEquippedItem());
@@ -595,9 +606,9 @@ public class BlockGenericPipe extends BlockContainer {
 	public static ItemPipe registerPipe(int key, Class<? extends Pipe> clas) {
 		ItemPipe item = new ItemPipe(key);
 
-		pipes.put(item.shiftedIndex, clas);
+		pipes.put(item.itemID, clas);
 
-		Pipe dummyPipe = createPipe(item.shiftedIndex);
+		Pipe dummyPipe = createPipe(item.itemID);
 		if (dummyPipe != null) {
 			item.setTextureFile(dummyPipe.getTextureFile());
 			item.setTextureIndex(dummyPipe.getTextureIndexForItem());

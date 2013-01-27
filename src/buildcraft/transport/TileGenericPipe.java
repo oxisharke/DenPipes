@@ -22,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.ITankContainer;
@@ -121,7 +122,9 @@ public class TileGenericPipe extends TileEntity implements IPowerReceptor, ITank
 
 		if (pipe != null) {
 			pipe.readFromNBT(nbttagcompound);
-		}
+		} else {
+			BuildCraftCore.bcLog.warning("Pipe failed to load from NBT at "+xCoord+","+yCoord+","+zCoord);
+        }
 
 		for (int i = 0; i < ForgeDirection.VALID_DIRECTIONS.length; i++) {
 			facadeBlocks[i] = nbttagcompound.getInteger("facadeBlocks[" + i + "]");
@@ -291,6 +294,8 @@ public class TileGenericPipe extends TileEntity implements IPowerReceptor, ITank
 
 		if (pipe != null) {
 			pipe.initialize();
+		} else {
+			BuildCraftCore.bcLog.warning("Pipe failed to initialize pipe at "+xCoord+","+yCoord+","+zCoord);
 		}
 
 		initialized = true;
@@ -457,7 +462,7 @@ public class TileGenericPipe extends TileEntity implements IPowerReceptor, ITank
 			return null;
 	}
 
-	public boolean isPipeConnected(TileEntity with) {
+	public boolean isPipeConnected(TileEntity with, ForgeDirection side) {
 		Pipe pipe1 = pipe;
 		Pipe pipe2 = null;
 
@@ -472,10 +477,10 @@ public class TileGenericPipe extends TileEntity implements IPowerReceptor, ITank
 				&& !pipe1.transport.allowsConnect(pipe2.transport))
 			return false;
 
-		if (pipe2 != null && !(pipe2.isPipeConnected(this)))
+		if (pipe2 != null && !(pipe2.isPipeConnected(this, side)))
 			return false;
 
-		return pipe1 != null ? pipe1.isPipeConnected(with) : false;
+		return pipe1 != null ? pipe1.isPipeConnected(with, side) : false;
 	}
 
 	private void computeConnections() {
@@ -488,18 +493,18 @@ public class TileGenericPipe extends TileEntity implements IPowerReceptor, ITank
 				t.refresh();
 
 				if (t.getTile() != null) {
-					pipeConnectionsBuffer[i] = isPipeConnected(t.getTile());
+					pipeConnectionsBuffer[i] = isPipeConnected(t.getTile(), ForgeDirection.VALID_DIRECTIONS[i].getOpposite());
 
 					if (t.getTile() instanceof TileGenericPipe) {
 						TileGenericPipe pipe = (TileGenericPipe) t.getTile();
-						pipe.pipeConnectionsBuffer[ForgeDirection.values()[i].getOpposite().ordinal()] = pipeConnectionsBuffer[i];
+						pipe.pipeConnectionsBuffer[ForgeDirection.VALID_DIRECTIONS[i].getOpposite().ordinal()] = pipeConnectionsBuffer[i];
 					}
 				}
 			}
 
 			for (int i = 0; i < tileBuffer.length; ++i)
 				if (oldConnections[i] != pipeConnectionsBuffer[i]) {
-					Position pos = new Position(xCoord, yCoord, zCoord, ForgeDirection.values()[i]);
+					Position pos = new Position(xCoord, yCoord, zCoord, ForgeDirection.VALID_DIRECTIONS[i]);
 					pos.moveForwards(1.0);
 					scheduleRenderUpdate();
 				}
@@ -661,5 +666,10 @@ public class TileGenericPipe extends TileEntity implements IPowerReceptor, ITank
 			return ((ITankContainer) pipe.transport).getTank(direction, type);
 		else
 			return null;
+	}
+
+	@Override
+	public boolean shouldRefresh(int oldID, int newID, int oldMeta, int newMeta, World world, int x, int y, int z) {
+		return oldID != newID;
 	}
 }

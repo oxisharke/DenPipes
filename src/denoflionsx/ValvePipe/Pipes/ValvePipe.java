@@ -51,15 +51,19 @@ public class ValvePipe extends PipeLiquidsWood {
         return ValvePipeMod.Core.texture;
     }
 
-    @Override
+     @Override
     public int getTextureIndex(ForgeDirection direction) {
-        return 0;
-    }
+        if (direction == ForgeDirection.UNKNOWN) {
+            return 0;
+        } else {
+            int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 
-    @Override
-    public int getTextureIndexForItem() {
-        return 0;
+            if (metadata == direction.ordinal()) {
+                return 14;
+            } else {
+                return 0;
+            }
+        }
     }
-    
-    
+     
 }

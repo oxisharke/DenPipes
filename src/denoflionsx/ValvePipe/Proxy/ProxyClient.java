@@ -18,7 +18,7 @@ public class ProxyClient extends Proxy {
     @Override
     public void registerPipe(ItemPipe pipe, Class c, String name) {
         super.registerPipe(pipe, c, name);
-        MinecraftForgeClient.registerItemRenderer(pipe.shiftedIndex, TransportProxyClient.pipeItemRenderer);
+        MinecraftForgeClient.registerItemRenderer(pipe.itemID, TransportProxyClient.pipeItemRenderer);
         pipe.setCreativeTab(ValvePipeMod.Core.tab);
     }
 

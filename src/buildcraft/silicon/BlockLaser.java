@@ -13,11 +13,11 @@ import java.util.ArrayList;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import buildcraft.core.CreativeTabBuildCraft;
 import buildcraft.core.DefaultProps;
 
 public class BlockLaser extends BlockContainer {
@@ -25,7 +25,7 @@ public class BlockLaser extends BlockContainer {
 	public BlockLaser(int i) {
 		super(i, Material.iron);
 		setHardness(0.5F);
-		setCreativeTab(CreativeTabs.tabRedstone);
+		setCreativeTab(CreativeTabBuildCraft.tabBuildCraft);
 	}
 
 	@Override
@@ -69,8 +69,8 @@ public class BlockLaser extends BlockContainer {
 	}
 
 	@Override
-	public int func_85104_a(World world, int x, int y, int z, int side, float par6, float par7, float par8, int meta) {
-		super.func_85104_a(world, x, y, z, side, par6, par7, par8, meta);
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float par6, float par7, float par8, int meta) {
+		super.onBlockPlaced(world, x, y, z, side, par6, par7, par8, meta);
 
 		if (side <= 6) {
 			meta = side;
