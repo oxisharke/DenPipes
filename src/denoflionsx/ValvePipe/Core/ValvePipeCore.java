@@ -91,7 +91,7 @@ public class ValvePipeCore implements IPipeCore {
         extractAction = new Extract();
         ValvePipeManagers.ActionManager.registerAction(pumpAction, "Pump");
         ValvePipeManagers.ActionManager.registerAction(extractAction, "Extract");
-        ValvePipeManagers.ActionManager.registerAction(PowerPipesCore.flowAction, "Flow");
+        ValvePipeManagers.ActionManager.registerAction(PowerPipesCore.flowAction, "Disconnect");
     }
 
     public void print(String msg) {

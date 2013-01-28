@@ -5,7 +5,7 @@ import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeTransport;
 import buildcraft.transport.PipeTransportPower;
 import buildcraft.transport.pipes.PipeLogic;
-import denoflionsx.ValvePipe.Actions.Flow;
+import denoflionsx.ValvePipe.Actions.Disconnect;
 import denoflionsx.ValvePipe.Pipes.PowerPipes.Logic.PipeLogicPowerSwitch;
 import denoflionsx.ValvePipe.ValvePipeMod;
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public class PowerSwitchPipe extends Pipe {
         boolean wasFound = false;
         PipeLogicPowerSwitch l = (PipeLogicPowerSwitch) this.logic;
         for (Integer i : actions.keySet()) {
-            if (actions.get(i).booleanValue() && buildcraft.api.gates.ActionManager.actions[i.intValue()] instanceof Flow) {
+            if (actions.get(i).booleanValue() && buildcraft.api.gates.ActionManager.actions[i.intValue()] instanceof Disconnect) {
                 wasFound = true;
             }
         }

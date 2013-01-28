@@ -3,11 +3,11 @@ package denoflionsx.ValvePipe.Actions;
 import buildcraft.api.gates.Action;
 import denoflionsx.ValvePipe.ValvePipeMod;
 
-public class Flow extends Action{
+public class Disconnect extends Action{
     
     public static final int ID = 957;
 
-    public Flow() {
+    public Disconnect() {
         super(ID);
     }
 
@@ -18,11 +18,11 @@ public class Flow extends Action{
 
     @Override
     public String getDescription() {
-        return "Flow";
+        return "Disconnect";
     }
 
     @Override
     public int getIndexInTexture() {
-        return 19;
+        return 18;
     }
 }
